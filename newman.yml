@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   contact: {}
 servers:
-  - url: '{{host}}'
+  - url: 'hhtps://stage-api.newmanministry.com'
   - url: '{{hostUrl}}'
 paths:
   /rest/login:
