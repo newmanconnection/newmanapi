@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: Manually Tested APIs
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: 'stage-api.newmanministry.com'
+paths:
+  /rest/mail:
+    post:
+      tags:
+        - mail
+      summary: Send mail
+      description: Send mail
+      operationId: sendMail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: This is a test email.
+                replyTo:
+                  type: string
+                  example: noreply@newmanministry.com
+                subject:
+                  type: string
+                  example: Test!!
+                to:
+                  type: array
+                  items:
+                    type: string
+                    example: greg@newmanministry.com
+                  example:
+                    - greg@newmanministry.com
+            example:
+              body: This is a test email.
+              replyTo: noreply@newmanministry.com
+              subject: Test!!
+              to:
+                - greg@newmanministry.com
+      responses:
+        '200':
+          description: ''
+  /rest/integration:
+    get:
+      tags:
+        - integration
+      summary: Get Integrations
+      description: Get Integrations
+      operationId: getIntegrations
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - integration
+      summary: Update Integration
+      description: Update Integration
+      operationId: updateIntegration
+      requestBody:
+        content:
+          text/plain:
+            example: "{\r\n    \"id\": {{integrationId}},\r\n    \"remoteSystem\": null\r\n}"
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - integration
+      summary: Create Integration
+      description: Create Integration
+      operationId: createIntegration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                remoteSystem:
+                  nullable: true
+                  example: null
+            example:
+              remoteSystem: null
+      responses:
+        '200':
+          description: ''
+  /rest/integration/{integrationId}:
+    get:
+      tags:
+        - integration
+      summary: Get Integration Details
+      description: Get Integration Details
+      operationId: getIntegrationDetails
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - integration
+      summary: Delete Integration
+      description: Delete Integration
+      operationId: deleteIntegration
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+  /rest/password/reset:
+    post:
+      tags:
+        - Password
+      summary: Reset Password
+      description: Reset Password
+      operationId: resetPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callback_url:
+                  nullable: true
+                  example: null
+                email:
+                  type: string
+                  example: cjakubik@newmanministry.com
+            example:
+              callback_url: null
+              email: cjakubik@newmanministry.com
+      responses:
+        '200':
+          description: ''
+  /rest/password/token:
+    get:
+      tags:
+        - Password
+      summary: Check Reset Token
+      description: Check Reset Token
+      operationId: checkResetToken
+      responses:
+        '200':
+          description: ''
+  /rest/password:
+    post:
+      tags:
+        - Password
+      summary: Update Password
+      description: Update Password
+      operationId: updatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: cjakubik@newmanministry.com
+                newPassword:
+                  type: string
+                  example: w
+                resetToken:
+                  type: string
+                  example: w
+            example:
+              email: cjakubik@newmanministry.com
+              newPassword: w
+              resetToken: w
+      responses:
+        '200':
+          description: ''
+  /rest/student/list/file:
+    post:
+      tags:
+        - student list
+      summary: Store Excel
+      description: Store Excel
+      operationId: storeExcel
+      parameters:
+        - name: Content-Disposition
+          in: header
+          schema:
+            type: string
+            example: filename=PoP.xlsx
+      requestBody:
+        content:
+          application/octet-stream: {}
+      responses:
+        '200':
+          description: ''
+  /rest/student/list/file/{fileGuid}:
+    delete:
+      tags:
+        - student list
+      summary: Delete File
+      description: Delete File
+      operationId: deleteFile
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: fileGuid
+        in: path
+        required: true
+        schema:
+          type: string
+  /rest/image:
+    post:
+      tags:
+        - image
+      summary: Create Image
+      description: Create Image
+      operationId: createImage
+      requestBody:
+        content:
+          application/octet-stream: {}
+      responses:
+        '200':
+          description: ''
+  /rest/image/{guid}:
+    get:
+      tags:
+        - image
+      summary: Get Image
+      description: Get Image
+      operationId: getImage
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - image
+      summary: Delete Image
+      description: Delete Image
+      operationId: deleteImage
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+tags:
+  - name: mail
+  - name: integration
+  - name: Password
+  - name: student list
+  - name: image
