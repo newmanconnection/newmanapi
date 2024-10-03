@@ -1323,7 +1323,7 @@ paths:
       requestBody:
         content:
           text/plain:
-            example: "[\r\n  {{sourceIds}}\r\n]"
+            example: "[{{sourceIds}}]"
       responses:
         '200':
           description: ''
